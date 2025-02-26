@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Comparaison des documents</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f7f7f7;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+    .container-fluid {
+      margin-top: 30px;
+    }
+    .document {
+      border: 1px solid #ccc;
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Diff container s'étendant sur toute la largeur */
+    .diff-container {
+      width: 100%;
+      overflow-x: auto;
+      animation: slideIn 1s ease;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-100px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    /* Style du tableau de diff */
+    table.diff {
+      width: 100% !important;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    table.diff th,
+    table.diff td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    table.diff .diff_header {
+      background-color: #e0e0e0;
+      text-align: center;
+      font-weight: bold;
+    }
+    table.diff .diff_next {
+      background-color: #c0c0c0;
+    }
+    table.diff .diff_add {
+      background-color: #aaffaa;
+    }
+    table.diff .diff_chg {
+      background-color: #ffff77;
+    }
+    table.diff .diff_sub {
+      background-color: #ffaaaa;
+    }
+    .btn-back {
+      display: block;
+      margin: 30px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <h1>Comparaison des documents</h1>
+    <h2>Différence entre les deux documents</h2>
+    <div class="document diff-container">
+      {{ diff_html|safe }}
+    </div>
+    <a href="{% url 'upload_documents' %}" class="btn btn-primary btn-back">Retour</a>
+  </div>
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

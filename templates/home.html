@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medical Writing Portal</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <style>
+    /* Fond animé en dégradé */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #3498db, #9b59b6);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      z-index: -1;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      color: #333;
+      background: #f0f0f0;
+    }
+    header {
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 3em;
+      letter-spacing: 2px;
+    }
+    .container {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* Style du dossier "Medical Writing" */
+    .folder {
+      width: 200px;
+      height: 150px;
+      background: #e74c3c;
+      border-radius: 8px;
+      position: relative;
+      margin: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .folder:hover {
+      transform: scale(1.05);
+    }
+    .folder:before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      width: 160px;
+      height: 40px;
+      background: #c0392b;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+    .folder .folder-title {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    .folder:hover .folder-title {
+      animation: bounce 1s;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+    p {
+      font-size: 1.1em;
+      text-align: center;
+      max-width: 600px;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    /* Bouton pour afficher le tableau des documents mises à jour */
+    .btn-updated {
+      margin-top: 20px;
+      font-size: 1.2em;
+      padding: 10px 20px;
+      transition: transform 0.3s ease;
+    }
+    .btn-updated:hover {
+      transform: scale(1.05);
+    }
+    /* Styles du tableau des documents mises à jour */
+    .table-updated {
+      width: 100%;
+      margin-top: 20px;
+      animation: fadeInTable 1s ease;
+    }
+    @keyframes fadeInTable {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .table-updated th, .table-updated td {
+      text-align: center;
+      vertical-align: middle;
+      padding: 12px;
+    }
+    .table-updated th {
+      background-color: #007bff;
+      color: #fff;
+      font-size: 1.1em;
+    }
+    .table-updated td a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .table-updated td a:hover {
+      text-decoration: underline;
+    }
+    /* Colonne d'index et suppression */
+    .index-col {
+      width: 5%;
+    }
+    .delete-col {
+      width: 10%;
+    }
+    .full-width {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-bg"></div>
+  <header>
+    <h1>Medical Writing Portal</h1>
+  </header>
+  <div class="container">
+    <!-- Dossier Medical Writing -->
+    <a href="{% url 'upload_documents' %}">
+      <div class="folder">
+        <div class="folder-title">Medical Writing</div>
+      </div>
+    </a>
+    <p>
+      Bienvenue sur le portail Medical Writing.<br>
+      Accédez à vos outils de gestion et de mise à jour des documents médicaux.
+    </p>
+    <!-- Bouton pour afficher le tableau des documents mises à jour -->
+    <button class="btn btn-outline-light btn-updated" type="button" data-bs-toggle="collapse" data-bs-target="#updatedDocuments" aria-expanded="false" aria-controls="updatedDocuments">
+      <i class="bi bi-folder2-open"></i> Voir documents mises à jour
+    </button>
+    <!-- Tableau collapsible des documents mises à jour -->
+    <div class="collapse full-width" id="updatedDocuments">
+      <div class="card card-body mt-4">
+        <h3 class="text-center mb-4">Documents mises à jour</h3>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-updated">
+            <thead class="table-primary">
+              <tr>
+                <th class="index-col">#</th>
+                <th>Doc1 Batch Analyses</th>
+                <th>Doc2 Laboratoire</th>
+                <th>Doc Mise à Jour</th>
+                <th>Date de mise à jour</th>
+                <th class="delete-col">Suppression</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for doc in updated_docs %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{{ doc.doc1.url }}" target="_blank">Télécharger</a></td>
+                <td><a href="{{ doc.doc2.url }}" target="_blank">Télécharger</a></td>
+                <td><a href="{{ doc.updated_doc.url }}" target="_blank">Télécharger</a></td>
+                <td>{{ doc.validated_at|date:"d/m/Y H:i" }}</td>
+                <td>
+                  <a href="{% url 'delete_document' doc.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce document ?');">
+                    <i class="bi bi-trash"></i>
+                  </a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center">Aucun document mis à jour disponible.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

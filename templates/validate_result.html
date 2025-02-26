@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documents validés</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #e0eafc, #cfdef3);
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      animation: fadeIn 1.5s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .card-header {
+      background: #28a745;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      position: relative;
+    }
+    .card-header::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 4px;
+      background: #218838;
+      animation: slideIn 2s infinite alternate;
+    }
+    @keyframes slideIn {
+      from { width: 0%; }
+      to { width: 100%; }
+    }
+    .card-body {
+      padding: 30px;
+      background: #fff;
+    }
+    h2 {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+    ul.downloads {
+      list-style: none;
+      padding: 0;
+    }
+    ul.downloads li {
+      margin-bottom: 10px;
+    }
+    ul.downloads li a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+    ul.downloads li a:hover {
+      color: #0056b3;
+    }
+    .btn-return {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #007bff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .btn-return:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card mx-auto">
+      <div class="card-header">
+        <i class="bi bi-check-circle-fill"></i> {{ message }}
+      </div>
+      <div class="card-body">
+        <h2>Téléchargements :</h2>
+        <ul class="downloads">
+          <li><a href="{{ validated.doc1.url }}"><i class="bi bi-file-earmark-text"></i> Télécharger le document 1 (Batch Analyses)</a></li>
+          <li><a href="{{ validated.doc2.url }}"><i class="bi bi-file-earmark-text"></i> Télécharger le document 2 (Laboratoire)</a></li>
+          <li><a href="{{ validated.updated_doc.url }}"><i class="bi bi-file-earmark-text"></i> Télécharger le document mis à jour</a></li>
+        </ul>
+        <a href="{% url 'upload_documents' %}" class="btn-return"><i class="bi bi-arrow-left"></i> Retour</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

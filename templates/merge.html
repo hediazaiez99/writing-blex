@@ -1,0 +1,7 @@
+<h1>Merge Documents</h1>
+<ul>
+    {% for document in documents %}
+        <li>{{ document.name }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'merge_documents' %}">Merge</a>
